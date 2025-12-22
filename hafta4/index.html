@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açlığa Son - Gıda Güvencesi Seninle Başlar</title>
+    <style>
+        /* CSS Başlangıcı */
+        html {
+            scroll-behavior: smooth; /* Yumuşak kaydırma özelliği */
+        }
+        /* TEMEL STİLLER - TURUNCU TEMA GÜNCELLEMESİ */
+        :root {
+            --primary-color: #f39c12; /* Güçlü Turuncu (Ana Renk) */
+            --secondary-color: #e67e22; /* Koyu Turuncu/Amber (Vurgu) */
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        /* BAŞLIK VE NAVİGASYON */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* LOGO VE NAVİGASYONU YAN YANA SIRALAMA */
+        .header-content {
+            display: flex;
+            flex-direction: row; 
+            justify-content: space-between; 
+            align-items: center; 
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: left; 
+        }
+
+        .logo {
+            margin-bottom: 0; 
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .logo p {
+            margin: 0;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end; 
+            flex-wrap: wrap; 
+        }
+
+        nav ul li {
+            margin: 0 15px; 
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color); 
+        }
+
+        /* BANNER STİLLERİ */
+        .page-banner {
+            height: 300px; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+
+
+        .page-banner h2 {
+            margin: 0;
+            font-size: 2.2em;
+            color: var(--white);
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-top: 0;
+        }
+
+        .page-banner p {
+            margin: 5px 0 15px 0; 
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Sayfaya Özel Banner Arka Planları */
+        #home .page-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+
+        #about .page-banner {
+            background: linear-gradient(90deg, #d35400, #f39c12); 
+            height: 300px;
+        }
+
+        #problems .page-banner {
+            background: linear-gradient(45deg, #eb4e3a, #dc8546);
+            height: 300px;
+        }
+
+        #solutions .page-banner {
+            background: linear-gradient(135deg, #21983d, #21e154); 
+            height: 300px;
+        }
+
+        #university-status .page-banner {
+            background: linear-gradient(135deg, #3f6aea, #12caf3); 
+        }
+
+        /* ANA İÇERİK */
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px; 
+            background-color: var(--white);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+        
+        .page {
+            display: none; 
+            padding-top: 0;
+        }
+
+        .page.active {
+            display: block; 
+        }
+
+        /* Genel stil güncellemeleri */
+        h2 {
+            color: var(--secondary-color); 
+            border-bottom: 3px solid var(--primary-color); 
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: var(--secondary-color); 
+            margin-top: 25px;
+        }
+        
+        /* BUTON STİLİ */
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color); 
+            color: var(--white);
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #d35400; 
+        }
+
+        /* Banner İçindeki Buton Stili */
+        .page-banner .btn {
+            margin-top: 0; 
+            font-size: 1.1em;
+            padding: 12px 30px;
+        }
+        
+        /* İstatistik Kutucukları (Yan Yana) */
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            border-radius: 8px;
+        }
+        .stat-item { flex: 1; padding: 15px; }
+        .stat-item h3 { font-size: 2.5em; color: var(--secondary-color); margin: 0 0 5px 0; }
+        .stat-item p { margin: 0; font-size: 0.9em; }
+        
+        /* Sorunlar Sayfası (Türkiye'de Durum) - Yan Yana Düzen */
+        .turkiye-durum-grid {
+            display: flex;
+            gap: 30px; 
+            margin-top: 20px;
+            flex-wrap: wrap; 
+        }
+        .turkiye-durum-item {
+            flex: 1;
+            min-width: 300px; 
+        }
+
+        /* Çözüm Kartları */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .solution-card {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Anket İstatistikleri (Yan Yana) */
+        .survey-stats {
+            display: flex; 
+            justify-content: space-around;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .survey-stat-item {
+            background-color: var(--primary-color); 
+            color: var(--white);
+            padding: 20px;
+            border-radius: 6px;
+            width: 30%;
+        }
+        .survey-stat-item .percent { font-size: 2.5em; font-weight: bold; }
+        
+        /* ANKET FORM STİLLERİ - GÜNCELLENDİ */
+        .survey-section {
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--white);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        /* YORUM KUTUCUĞU STİLİ - BÜYÜK YAPILDI */
+        .survey-section textarea {
+            width: 100%; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 150px; /* Daha büyük kutu için yükseklik artırıldı */
+            resize: vertical; /* Sadece dikey olarak yeniden boyutlandırmaya izin ver */
+            margin-top: 10px;
+        }
+
+        /* FOOTER - GRİ KISIM (DEĞİŞTİRİLMEDİ) */
+        footer {
+            background-color: var(--text-color); 
+            color: var(--white);
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: flex; 
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-section { width: 30%; }
+        .footer-section h4 {
+            color: var(--secondary-color); 
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        .footer-section ul li a:hover {
+            opacity: 1;
+            color: var(--secondary-color); 
+        }
+        .contact p { margin: 5px 0; }
+        .contact p a { color: var(--secondary-color); }
+
+        /* Medya sorguları (Responsive tasarım) */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                justify-content: center;
+                margin-top: 15px;
+            }
+            .stats-grid, .survey-stats, .footer-grid, .turkiye-durum-grid {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .survey-stat-item, .footer-section, .turkiye-durum-item {
+                width: 100%;
+            }
+            .stats-grid { padding: 0; }
+            .stat-item { border-bottom: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content" style="display: flex; align-items: center; justify-content: space-between; padding: 5px 20px;">
+    <div class="logo" style="display: flex; align-items: center; gap: 12px; margin: 0;">
+        <img src="logo.jpeg" alt="Logo" style="height: 45px; width: auto; display: block;">
+        
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <h1 style="margin: 0; font-size: 25px; line-height: 1.1;">Açlığa Son</h1>
+            <p style="margin: 0; font-size: 15px; opacity: 0.9;">Gıda Güvencesi Seninle Başlar</p>
+        </div>
+    </div>
+            <nav>
+                <ul>
+                    <li><a onclick="showPage('home')">Ana Sayfa</a></li>
+                    <li><a onclick="showPage('about')">Hedef Hakkında</a></li>
+                    <li><a onclick="showPage('problems')">Sorunlar</a></li>
+                    <li><a onclick="showPage('solutions')">Çözümler</a></li>
+                    <li><a onclick="showPage('university-status')">Üniversitemizde Durum</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="home" class="page active">
+            <div class="page-banner">
+                <div class="banner-content">
+                    <h2>Gıda Güvencesi Seninle Başlar</h2>
+                    <p>Sürdürülebilir Kalkınma Amacı 2: Açlığa Son</p>
+                    <p>2030 yılına kadar açlığa son vermek, gıda güvenliğini sağlamak ve sürdürülebilir tarımı teşvik etmek için hep birlikte hareket edelim.</p>
+                    <a href="#" class="btn" onclick="showPage('university-status', 'anket-formu')">Ankete Katıl</a>
+                </div>
+            </div>
+
+<section class="afis-section" style="text-align: center; margin: 30px auto; max-width: 900px; position: relative; border-radius: 12px; overflow: hidden;">
+    <div class="mySlides">
+        <img src="afis.jpg" style="width:100%; display: block;">
+    </div>
+    <div class="mySlides" style="display:none;">
+        <img src="Afis2.png" style="width:100%; display: block;">
+    </div>
+    <div class="mySlides" style="display:none;">
+        <img src="afis3.png" style="width:100%; display: block;">
+    </div>
+</section>
+
+            <section>
+                <h2>🌍 Küresel Bir Risk</h2>
+                <p><b>"Açlığın sona erdirilmesi, gıda güvenliği ve daha iyi beslenme güvencesinin sağlanması; sürdürülebilir tarımın desteklenmesi."</b></p>
+                <p>Gıda güvenliği gittikçe büyüyen küresel bir risktir. Dünyanın 2050 yılına kadar 9 milyar insanı beslemek için en az %50 daha fazla gıda üretmesi gerekecektir. Küresel gıda ve tarım sistemi, iklim değişikliği ve doğal kaynakların bozulmasına katkıda bulunmak ile birlikte bu koşullar da gıda ve tarım sistemini olumsuz olarak etkilemektedir.</p>
+                
+                <h3></h3>
+                <p>Açlığa Son platformu, küresel ve yerel ölçekte yaşanan gıda güvensizliği sorununa dikkat çekmeyi, bu konuda çözüm odaklı projeler geliştirmeyi ve toplumda farkındalık oluşturmayı amaçlayan bir girişimdir. Amacımız; sürdürülebilir gıda kaynaklarını destekleyerek, israfı azaltarak ve ihtiyaç sahiplerine erişilebilir yardım mekanizmaları sunarak açlıkla mücadelede kalıcı bir etki yaratmaktır. Bu platform, bireylerin, kurumların ve gönüllülerin ortak çabasıyla daha adil, dengeli ve herkes için yeterli gıdaya erişimin sağlandığı bir dünyanın mümkün olduğunu hatırlatır.</p>
+            </section>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>828 Milyon</h3>
+                    <p>kişi dünyada açlık çekiyor</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2030</h3>
+                    <p>yılına kadar açlığa son</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Sürdürülebilir</h3>
+                    <p>tarım ve gıda sistemleri</p>
+                </div>
+            </div>
+
+            <section style="text-align: center;">
+                <h2>📣 Harekete Geçme Zamanı!</h2>
+                <p>Gıda güvenliği hepimizin sorumluluğunda. Sen de sesini duyur, <a onclick="showPage('university-status', 'anket-formu')">anketimize katıl</a> ve fark yarat.</p>
+                <a href="#" class="btn" onclick="showPage('university-status', 'anket-formu')">Ankete Katıl</a>
+            </section>
+        </div>
+
+        <div id="about" class="page">
+             <div class="page-banner" style="height: 200px;"> 
+                <div class="banner-content">
+                    <h2>Hedef Hakkında</h2>
+                    <p>Sürdürülebilir Kalkınma Amacı 2: Açlığa Son</p>
+                </div>
+            </div>
+            <section>
+                <h2 style="font-size: 35px; color:#d35400">SKA 2 Nedir</h2>
+                <p>SKA 2: Açlığa Son, herkesin yeterli, güvenli ve besleyici gıdaya yıl boyunca erişimini sağlamayı; açlığı ortadan kaldırmayı ve sürdürülebilir tarımı desteklemeyi amaçlar. Dünya genelinde milyonlarca insan yetersiz beslenme riski altındayken, bu hedef yalnızca gıda üretimini artırmayı değil, aynı zamanda adil paylaşımı, iklim dostu tarım uygulamalarını ve kırılgan toplulukların dayanıklılığını güçlendirmeyi merkezine alır. Açlığa son vermek, sağlıklı bireyler, güçlü toplumlar ve sürdürülebilir bir gelecek için atılması gereken temel bir adımdır.</p>
+                <blockquote>
+                    <div class="stats-grid">
+                    <div class="stat-item" style="background-color: #ff5821; width: 400px; height: 100px ; font-size: 20px ; color: var(--white); border-radius: 10px;">
+                    "2030 yılına kadar açlığa son vermek, herkesin özellikle yoksulların ve bebekler dahil savunmasız durumdakilerin tüm yıl boyunca güvenli, besleyici ve yeterli gıdaya erişimini sağlamak."
+                    <cite>- Birleşmiş Milletler SKA 2</cite>
+                </blockquote>
+            </section>
+
+            <section>
+                <h2 style="font-size: 35px; color:#d35400 ">2030 Hedefleri</h2>
+                
+                <h3>Hedef 2.1:</h3>
+                <p>2030 yılına kadar, açlığa son vermek ve özellikle yoksullar ve bebekler de
+dâhil kırılgan durumda olan insanlar başta olmak üzere herkes için yıl
+boyunca güvenli, besleyici ve yeterli gıdaya erişim sağlamak</p>
+                
+                <h3>Hedef 2.2:</h3>
+                <p>Beş yaş altındaki çocukların aşırı zayıflıkları ve büyümesini engelleyen
+nedenlere ilişkin uluslararası düzeyde kabul edilmiş 2025 yılı hedeflerine
+ulaşılması da dâhil olmak üzere 2030 yılına kadar, her türlü yetersiz
+beslenmeye son vermek ve ergenlik çağındaki kızlar, hamile ve emziren
+kadınlar ve yaşlıların beslenme ihtiyaçlarını ele almak</p>
+                
+                <h3>Hedef 2.3:</h3>
+                <p>2030 yılına kadar, başta kadınlar, yerliler, aile çiftçileri, göçebeler ve balıkçılar
+olmak üzere küçük ölçekli gıda üreticilerinin arazi, diğer üretken kaynaklar
+ve girdiler, bilgi, mali hizmetler, pazarlar ve değer katma fırsatları, tarım dışı
+istihdam olanaklarına eşit ve güvenli erişimlerini sağlamayı da içerecek
+biçimde, gelir ve tarımsal verimliliğini ikiye katlamak</p>
+                
+                <h3>Hedef 2.4:</h3>
+                <p>2030 yılına kadar, sürdürülebilir gıda üretim sistemlerini teminat altına
+almak ile verimliliği ve üretimi artıran, ekosistemlerin korunmasına
+yardımcı olan, iklim değişikliği, aşırı hava koşulları, kuraklık, sel ve
+diğer afetlere uyum kapasitesini güçlendiren ve arazi ve toprak kalitesini
+aşamalı biçimde iyileştiren dayanıklı tarım uygulamalarını gerçekleştirmek</p>
+                
+                <h3>Hedef 2.5:</h3>
+                <p>2020 yılına kadar, ulusal, bölgesel ve uluslararası düzeyde sağlıklı yönetilmiş
+ve çeşitlendirilmiş tohum ve bitki bankalarını da içerecek biçimde, tohumlar,
+kültür bitkileri, çiftlik ve evcilleştirilmiş hayvanlar, onların yabani türlerinin
+genetik çeşitliliğini korumak; uluslararası alanda kabul edildiği biçimde
+genetik kaynakların ve ilgili geleneksel birikimin kullanımından elde edilen
+faydalara erişim, adil ve hakkaniyetli paylaşımı desteklemek</p>
+                
+                <h3>Hedef 2.a:</h3>
+                <p>Başta en az gelişmiş ülkeler olmak üzere gelişmekte olan ülkelerde tarımsal
+üretim kapasitesinin artırılması için, daha gelişmiş uluslararası işbirliğini de
+içerecek biçimde, kırsal altyapı, tarımsal araştırma ve çiftçi eğitim hizmetleri,
+teknoloji geliştirme, bitki ve hayvan gen bankalarına yatırımı artırmak</p>
+                
+                <h3>Hedef 2.b:</h3>
+                <p> Doha Kalkınma Gündemine uygun olarak, her türlü tarımsal ihracat
+sübvansiyonu ve eşdeğer etkili tüm ihracat önlemlerinin eşzamanlı
+olarak kaldırılmasını da içerecek biçimde, dünya tarım piyasalarındaki ticari
+kısıtlama ve aksaklıkları düzeltmek ve önlemek</p>
+                
+                <h3>Hedef 2.c:</h3>
+                <p>Gıda emtia piyasaları ve türevlerinin düzgün işlemesi için önlem almak ve
+gıda fiyatlarında aşırı dalgalanmaları sınırlandırmak için, gıda rezervleri dâhil
+piyasa bilgilerine zamanında erişimi kolaylaştırmak</p>
+            </section>
+
+            <section>
+                <h2>📊 Küresel Durum</h2>
+                <div class="stats-grid">
+                    <div class="stat-item" style="background-color: #ff941b; color: var(--white); border-radius: 6px;">
+                        <h3 style="color: white">828M</h3>
+                        <p style="font-size: 18px;">kişi açlık çekiyor (2021)</p>
+                    </div>
+                    <div class="stat-item" style="background-color: #ff941b; color: var(--white); border-radius: 6px;">
+                        <h3 style="color: white">2.3M</h3>
+                        <p style="font-size: 18px;">kişi orta veya ağır gıda güvencesizliği yaşıyor</p>
+                    </div>
+                    <div class="stat-item" style="background-color: #ff941b; color: var(--white); border-radius: 6px;">
+                        <h3 style="color: white">45M</h3>
+                        <p style="font-size: 18px;">çocuk aşırı zayıflama tehdidi altında</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="problems" class="page">
+             <div class="page-banner" style="height: 200px;">
+                <div class="banner-content">
+                    <h2>Sorunlar</h2>
+                    <p>Açlık ve Gıda Güvencesizliği</p>
+                </div>
+            </div>
+            <section>
+                <h2 style="font-size:30px">Dünyada Açlık ve Gıda Güvencesizliği</h2>
+                <p>Açlık ve gıda güvencesizliği, milyonlarca insanı etkileyen küresel bir sorundur. 2021 yılında yaklaşık '828 milyon'insan açlık çekmiştir. Bu, 2020 yılından bu yana 46 milyon, 2019 yılından bu yana ise 150 milyon kişilik bir artışı temsil etmektedir.</p>
+                <div class="stats-grid">
+                    <div class="stat-item" style="background-color: #f74433; width: 400px; height: 100px ; font-size: 20px ; color: var(--white); border-radius: 10px;">
+                                <p>COVID-19 pandemisi, iklim değişikliği ve çatışmalar nedeniyle açlık krizi daha da derinleşmiştir.</p> <p>2030 yılına kadar SKA 2 hedeflerine ulaşmak için acil eylem gereklidir.</p>
+            </section>
+
+            <h2 style="font-size:30px">Ana Sorun Alanları</h2>
+
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h4 style="color:#f25622 ; font-size: 20px">Yetersiz Beslenme</h4>
+                    <ul>
+                        <li>Dünya nüfusunun yaklaşık %30'u orta veya şiddetli gıda güvencesizliği yaşamaktadır (2.3 milyar insana denk gelmektedir).</li>
+                        <li>149 milyon 5 yaş altı çocuk budık (boy kısalığı)</li>
+                        <li>45 milyon 5 yaş altı çocuk zayıf (kırılganlık)</li>
+                        <li>39 milyon 5 yaş altı çocuk aşırı kilolu</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card">
+                    <h4 style="color:#f25622 ; font-size: 20px">Çatışma ve İklim</h4>
+                    <ul>
+                        <li>Çatışmalar, iklim değişikliği ve ekonomik krizler gıda güvencesizliğinin başlıca nedenleridir.</li>
+                        <li>70 milyondan fazla insan çatışma nedeniyle yerinden edildi</li>
+                        <li>İklim değişikliği mahsul verimini %30'a kadar azaltıyor</li>
+                        <li>Kıtlık ve aşırı hava olayları artıyor</li>
+                    </ul>
+                </div>
+                        
+                <div class="solution-card">
+                    <h4 style="color:#f25622 ; font-size: 20px">Ekonomik Eşitsizlik</h4>
+                    <ul>
+                        <li>Yoksulluk ve ekonomik eşitsizlik, gıda erişiminde ciddi engeller oluşturur.</li>
+                        <li>Kırsal alanlar daha fazla gıda güvencesizliği yaşıyor</li>
+                        <li>Gıda fiyatları yüksek enflasyon nedeniyle artıyor</li>
+                        <li>Küçük çiftçiler pazara erişimde zorluk çekiyor</li>
+                    </ul>
+                </div>
+                        
+                <div class="solution-card">
+                    <h4 style="color:#f25622 ; font-size: 20px">Gıda İsrafı</h4>
+                    <ul>
+                        <li>Üretilen gıdanın yaklaşık üçte biri israf ediliyor - bu hem ekonomik hem de çevresel bir sorun.</li>
+                        <li>Yılda 1.3 milyar ton gıda çöpe gidiyor</li>
+                        <li>Gıda israfı sera gazı emisyonlarının %8-10'unu oluşturuyor</li>
+                        <li>Gelir elde etmeden kaynaklar boşa harcanıyor</li>
+                    </ul>
+                    <head>
+  <style>
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  </style>
+</head>
+                </div>
+            </div>
+
+            <section>
+                <h2 style="font-size:30px">Türkiye'de Durum</h2>
+                <div class="turkiye-durum-grid">
+                    <div class="turkiye-durum-item">
+                        <h3>Ana Sorunlar</h3>
+                        <ul>
+                            <li>Yüksek gıda enflasyonu</li>
+                            <li>Öğrencilerde beslenme yetersizliği</li>
+                            <li>Kırsal-kentsel gıda erişimi farkı</li>
+                            <li>Gıda israfı ve dağıtım sorunları</li>
+                        </ul>
+                    </div>
+                    <div class="turkiye-durum-item">
+                        <h3>Etkilenen Gruplar</h3>
+                        <ul>
+                            <li>Üniversite öğrencileri</li>
+                            <li>Düşük gelirli aileler</li>
+                            <li>Yaşlılar ve emekliler</li>
+                            <li>Mülteci ve göçmen topluluklar</li>
+                        </ul>
+                    </div>
+                </div>
+                <head>
+            </section>
+        </div>
+
+        <div id="solutions" class="page">
+             <div class="page-banner" style="height: 200px;">
+                <div class="banner-content">
+                    <h2>Çözümler</h2>
+                    <p>Sürdürülebilir ve Etkili Çözüm Yolları</p>
+                </div>
+            </div>
+            <h2 style="font-size: 25px">💡 Çözümler</h2>
+            <p><b>Açlık ve gıda güvencesizliği sorunlarına karşı sürdürülebilir ve etkili çözümler mevcuttur. Topluluk katılımı, sürdürülebilir tarım uygulamaları ve sistemik değişikliklerle 2030 hedeflerine ulaşmak mümkündür.</b></p>
+            <p>Açlıkla mücadele, yalnızca gıda dağıtımıyla sınırlı olmayan, kapsamlı ve sürdürülebilir
+adımlar gerektiren bir süreçtir. Bu bölümde, Açlığa Son platformu olarak hem bireysel hem
+de toplumsal düzeyde uygulanabilecek etkili çözüm önerilerini bir araya getiriyoruz. Gıda
+israfının azaltılmasından sürdürülebilir tarım yöntemlerine, eğitim çalışmalarından
+teknolojik yeniliklere kadar pek çok yaklaşım, açlık sorununu kalıcı şekilde hafifletmede
+kritik rol oynar. Buradaki çözümler, herkesin katkıda bulunabileceği somut adımlarla daha
+adil ve erişilebilir bir gıda sistemi oluşturmayı hedefler.</p>
+
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h4 style="font-size:20px; color:#f39c12">Sürdürülebilir Tarım</h4>
+                    <p>Organik ve sürdürülebilir tarım uygulamalarıyla hem çevreyi koruyup hem de verimli üretim sağlamak mümkündür.</p>
+                    <ul>
+                        <li>Organik gübre kullanımı</li>
+                        <li>Su tasarrufu teknikleri</li>
+                        <li>Çeşitli ekin rotasyonu</li>
+                        <li>Toprak koruma yöntemleri</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <h4 style="font-size:20px; color:#f39c12">Gıda Bankası</h4>
+                    <p>Fazla gıdayı ihtiyaç sahiplerine ulaştıran gıda bankaları hem israfı önler hem de açlığa çözüm olur.</p>
+                    <ul>
+                        <li>Gıda israfını azaltma</li>
+                        <li>İhtiyaç sahiplerine ulaşma</li>
+                        <li>Dağıtım ağı oluşturma</li>
+                        <li>Gönüllü katılımı</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <h4 style="font-size:20px; color:#f39c12">Gıda İsrafını Azaltma</h4>
+                    <p>Gıda israfını önlemek için bilinçlendirme, doğru saklama ve fazla gıda paylaşımı önemlidir.</p>
+                    <ul>
+                        <li>Bilinçlendirme kampanyaları</li>
+                        <li>Doğru saklama teknikleri</li>
+                        <li>Fazla gıda bağışı</li>
+                        <li>Kompost yapma</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <h4 style="font-size:20px; color:#f39c12">Teknolojik İnovasyon</h4>
+                    <p>Tarımda teknoloji kullanımı, verimli üretim ve kaynak yönetimi için kritik öneme sahiptir.</p>
+                    <ul>
+                        <li>Akıllı tarım sistemleri</li>
+                        <li>Dikey tarım</li>
+                        <li>Hidroponik sistemler</li>
+                        <li>Veri analiği ve tahmin</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <h4 style="font-size:20px; color:#f39c12">Topluluk Bahçeleri</h4>
+                    <p>Kentsel ve kırsal alanlarda topluluk bahçeleri, hem gıda üretimi hem de sosyal birliktelik sağlar.</p>
+                    <ul>
+                        <li>Yerel gıda üretimi</li>
+                        <li>Sosyal bağ oluşturma</li>
+                        <li>Eğitim fırsatları</li>
+                        <li>Taze sebze-meyve erişimi</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <h4 style="font-size:20px; color:#f39c12">Tarımsal Eğitim</h4>
+                    <p>Çiftçilere modern tarım teknikleri ve sürdürülebilir uygulamalar hakkında eğitim vermek verimliliği artırır.</p>
+                    <ul>
+                        <li>Modern tarım teknikleri</li>
+                        <li>Verimlilik eğitimleri</li>
+                        <li>Finansal okuryazarlık</li>
+                        <li>Pazar erişimi destekleri</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section>
+                <h2 style="font-size:30px ; color:#1b8a49">Üniversitelerde Uygulanabilir Çözümler</h2>
+                <div class="solutions-grid">
+                    <div class="solution-card" style="background-color:#3be09eb9;">
+                        <h4 style="font-size:25px ;" >Kampüs Bahçeleri</h4>
+                        <p>Kampüs alanlarında organik bahçeler kurarak hem öğrencilere taze ürün hem de eğitim fırsatı sunulabilir.</p>
+                    </div>
+                    <div class="solution-card" style="background-color: #3be09eb9;;">
+                        <h4 style="font-size:25px">Gıda Paylaşım Programları</h4>
+                        <p>Yemekhanelerde fazla gıdaların ihtiyaç sahibi öğrencilere ulaştırılması için sistemler oluşturulabilir.</p>
+                    </div>
+                    <div class="solution-card" style="background-color: #3be09eb9;;">
+                        <h4 style="font-size:25px">Farkındalık Eğitimleri</h4>
+                        <p>Gıda güvenliği, beslenme ve sürdürülebilir yaşam hakkında eğitim programları düzenlenir.</p>
+                    </div>
+                    <div class="solution-card" style="background-color: #3be09eb9;;">
+                        <h4 style="font-size:25px">Öğrenci Dayanışma Ağı</h4>
+                        <p>Ekonomik zorluk yaşayan öğrenciler için gıda kuponu veya destek programları başlatılabilir.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="university-status" class="page">
+             <div class="page-banner">
+                <div class="banner-content">
+                    <h2>Üniversitemizde Durum</h2>
+                    <p>Kampüste Gıda Güvenliği ve Anket</p>
+                    <a href="#anket-formu" class="btn">Ankete Git</a>
+                </div>
+            </div>
+            <section>
+                <h2>Anket İstatistikleri</h2>
+                <div class="survey-stats">
+                    <div class="survey-stat-item">
+                        <div class="percent">17,4%</div>
+                        <p>Gıda Güvencesizliği Yaşıyor</p>
+                    </div>
+                    <div class="survey-stat-item" style="background-color: var(--secondary-color);"> 
+                        <div class="percent">25</div>
+                        <p>Toplam Katılımcı</p>
+                    </div>
+                    <div class="survey-stat-item">
+                        <div class="percent">43,5%</div>
+                        <p>Gıda Desteğine İhtiyacı Var</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="survey-section" id="anket-formu">
+                <h2>Kampüs Gıda Güvenliği Anketi</h2>
+                <p>Görüşlerin bizim için çok önemli. Lütfen aşağıdaki anketi doldurarak kampüsümüzdeki gıda güvenliği durumunu değerlendirmemize yardımcı olun.</p>
+                <form onsubmit="handleSurvey(event)">
+                    <div class="form-group">
+                        <label for="adsoyad">Adınız Soyadınız</label>
+                        <input type="text" id="adsoyad" name="adsoyad" placeholder="Adınızı girin">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz (İsteğe bağlı)</label>
+                        <input type="email" id="email" name="email" placeholder="ornek@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <p><strong>1. Kampüste gıda güvencesizliği yaşıyor musunuz?</strong></p>
+                        <label><input type="radio" name="guvencesizlik" value="evet"> Evet, gıda güvencesizliği yaşıyorum</label><br>
+                        <label><input type="radio" name="guvencesizlik" value="hayir"> Hayır, gıda güvencesizliği yaşamıyorum</label><br>
+                        <label><input type="radio" name="guvencesizlik" value="bazen"> Bazen yaşıyorum</label>
+                    </div>
+
+                    <div class="form-group">
+                        <p><strong>2. Gıda desteğine ihtiyaç duyuyor musunuz?</strong></p>
+                        <label><input type="radio" name="destek" value="evet"> Evet, İhtiyaç duyuyorum</label><br>
+                        <label><input type="radio" name="destek" value="hayir"> Hayır, İhtiyaç duymuyorum</label>
+                    </div>
+
+                    <div class="form-group">
+                        <p><strong>3. Kampüste hangi çözümleri görmek istersiniz?</strong></p>
+                        <label><input type="checkbox" name="cozum" value="gida_bankasi"> Gıda bankası ve dağıtım programı</label><br>
+                        <label><input type="checkbox" name="cozum" value="kampus_bahceleri"> Kampüs bahçeleri</label><br>
+                        <label><input type="checkbox" name="cozum" value="kupon_programi"> Öğrenci gıda kuponu programı</label><br>
+                        <label><input type="checkbox" name="cozum" value="tum_cozumler"> Tüm çözümleri görmek isterim</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ekyorum">Ek Yorumlarınız (İsteğe bağlı)</label>
+                        <textarea id="ekyorum" name="ekyorum" placeholder="Düşüncelerinizi paylaşın"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="background-color: var(--primary-color); width: 100%;">Anketi Gönder</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Açlığa Son</h4>
+                <p>Sürdürülebilir Kalkınma Amacı 2: Açlığa son vermek, gıda güvenliğini sağlamak, beslenme durumunu iyileştirmek ve sürdürülebilir tarımı teşvik etmek.</p>
+                <p>2025 Açlığa Son Projesi - Gıda Güvencesi Seninle Başlar</p>
+            </div>
+                        
+            <div class="footer-section">
+                <h4>Hızlı Bağlantılar</h4>
+                <ul>
+                    <li><a onclick="showPage('home')">Ana Sayfa</a></li>
+                    <li><a onclick="showPage('about')">Hedef Hakkında</a></li>
+                    <li><a onclick="showPage('problems')">Sorunlar</a></li>
+                    <li><a onclick="showPage('solutions')">Çözümler</a></li>
+                    <li><a onclick="showPage('university-status')">Üniversitemizde Durum</a></li>
+                    <li><a href="https://www.un.org/sustainabledevelopment/tr/sustainable-development-goals/" target="_blank">UN Sürdürülebilir Kalkınma Amaçları</a></li>
+                </ul>
+            </div>
+                        
+            <div class="footer-section">
+                <h4>İletişim</h4>
+                <div class="contact">
+                    <p>E-posta: <a href="mailto:acligason@aku.edu.tr" style="color: var(--secondary-color);">acligason@aku.edu.tr</a></p>
+                    <p>Adres: Afyon Kocatepe Üniversitesi-ANS Kampüsü </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId, targetId = null) {
+            // Tüm sayfa içeriklerini gizle
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // İstenen sayfa içeriğini göster
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.classList.add('active');
+                
+                // Eğer bir hedef ID varsa, oraya kaydır
+                if (targetId) {
+                    // Kaydırma işleminin, sayfa DOM'a eklendikten sonra gerçekleşmesi için gecikme eklenir
+                    setTimeout(() => {
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            // Yumuşak kaydırma ile hedef elemente git
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                            // Eğer hedef ID bulunamazsa, yine de sayfayı en üste kaydır.
+                            window.scrollTo(0, 0);
+                        }
+                    }, 100); 
+                } else {
+                    // Sayfa geçişinde scroll'u en üste taşı (varsayılan)
+                    window.scrollTo(0, 0);
+                }
+            }
+        }
+
+        // Sayfa yüklendiğinde varsayılan olarak Ana Sayfa'yı göster
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+        function handleSurvey(event) {
+            event.preventDefault(); // SAYFA YENİLENMESİN
+
+            alert("Anket başarıyla gönderildi! 🙌");
+
+            event.target.reset();
+        }
+
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}    
+        slides[slideIndex-1].style.display = "block";  
+        setTimeout(showSlides, 4000); // 4000 milisaniye = 4 saniye
+    }
+
+    </script>
+</body>
+</html>
